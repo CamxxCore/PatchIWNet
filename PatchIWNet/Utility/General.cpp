@@ -62,11 +62,11 @@ std::string Utility::GetFilenameWithoutPath( std::string & s, const bool removeE
 		(removeExtension ? s.find_first_of('.') : s.length()) - pos);
 }
 
-std::vector<std::string> Utility::TokenizeString( std::string & string, const char delimiter ) {
+std::vector<std::string> Utility::TokenizeString( std::string & s, const char delimiter ) {
 
     std::vector<std::string> result;
 
-    auto str = string.c_str();
+    auto str = s.c_str();
 
     do {
         const char *begin = str;
@@ -148,8 +148,7 @@ std::string Utility::GetShortTimeString() {
 
     localtime_s( &timeinfo, &t );
 
-    return FormatString( "%02d:%02d:%02d",
-                         timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec );
+    return va( "%02d:%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec );
 }
 
 std::string Utility::GetShortDateString() {
@@ -160,8 +159,7 @@ std::string Utility::GetShortDateString() {
 
     localtime_s( &timeinfo, &t );
 
-    return FormatString( "%02d:%02d:%02d",
-                         timeinfo.tm_mday, timeinfo.tm_mon, timeinfo.tm_year - 100 );
+    return va( "%02d:%02d:%02d", timeinfo.tm_mday, timeinfo.tm_mon, timeinfo.tm_year - 100 );
 }
 
 

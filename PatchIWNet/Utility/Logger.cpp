@@ -8,22 +8,16 @@ Logger::Logger() : path( GetModuleName( nullptr ) + ".log" )
 
 void Logger::Write( const char * format, ... ) const {
 
-    va_list va;
-    va_start( va, format );
-    vsprintf_s( g_logBuffer, format, va );
-    va_end( va );
+    va_list vl;
+    va_start( vl, format );
+    vsprintf_s( g_logBuffer, format, vl );
+    va_end( vl );
 
     std::ofstream ofs( path, std::ios::app );
 
-    const auto str = FormatString( "[%s] [LOG] %s\n", GetShortTimeString().c_str(), g_logBuffer );
-
-    ofs << str;
+    ofs << va("[%s] [LOG] %s\n", GetShortTimeString().c_str(), g_logBuffer);
 
     ofs.close();
-
-#ifdef _DEBUG
-    OutputDebugStringA( str.c_str() );
-#endif
 }
 
 void Logger::Remove() const {

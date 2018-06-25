@@ -27,8 +27,6 @@ std::string GetShortTimeString();
 
 std::string GetShortDateString();
 
-
-
 bool FileExists( const std::string& fileName );
 
 bool ModuleExists( const std::string& moduleName );
@@ -41,7 +39,7 @@ int ctol( char c );
 bool PasteToClipboard( const std::string& text );
 
 template<typename ... Args>
-std::string FormatString( const std::string& format, Args ... args ) {
+std::string va( const std::string& format, Args ... args ) {
     const size_t size = ::snprintf( nullptr, 0, format.c_str(), args ... ) + 1;
     std::unique_ptr<char[]> buf( new char[size] );
     snprintf( buf.get(), size, format.c_str(), args... );
